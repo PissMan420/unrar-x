@@ -194,6 +194,9 @@
     #define LITTLE_ENDIAN
     #undef BIG_ENDIAN
   #endif
+  // Optimize for arm macs lol 
+  #undef ALLOW_NOT_ALIGNED_INT
+  #define STRICT_ALIGNMENT_REQUIRED
 #endif
 
 #if defined(__sparc) || defined(sparc) || defined(__hpux)

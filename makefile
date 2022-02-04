@@ -140,7 +140,7 @@ lib:	clean $(OBJECTS) $(LIB_OBJ)
 	$(LINK) -shared -o libunrar.so $(LDFLAGS) $(OBJECTS) $(LIB_OBJ)
 
 install-unrar:
-			install -D unrar $(DESTDIR)/bin/unrar
+			mv unrar $(DESTDIR)/bin/unrar 
 
 uninstall-unrar:
 			rm -f $(DESTDIR)/bin/unrar
