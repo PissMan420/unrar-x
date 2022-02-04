@@ -16,41 +16,25 @@ void SetPriority(int Priority)
   int PriorityLevel;
   if (Priority<1 || Priority>15)
     return;
-
-  if (Priority==1)
-  {
+  
+  if (Priority <= 7){
+    PriorityClass = Priority == 7 ?
+      BELOW_NORMAL_PRIORITY_CLASS : IDLE_PRIORITY_CLASS;
+    PriorityLevel =  Priority == 7 ?
+      THREAD_PRIORITY_ABOVE_NORMAL : Priority-4;
+  } else if (Priority <= 10) {
+    PriorityClass = Priority < 10 ? NORMAL_PRIORITY_CLASS :
+      ABOVE_NORMAL_PRIORITY_CLASS;
+    PriorityLevel = Priority < 10 ? Priority - 7  :
+      THREAD_PRIORITY_NORMAL;
+  } else if (Priority == 1) {
     PriorityClass=IDLE_PRIORITY_CLASS;
     PriorityLevel=THREAD_PRIORITY_IDLE;
+  } else {
+    PriorityClass=HIGH_PRIORITY_CLASS;
+    PriorityLevel=Priority-13;
   }
-  else
-    if (Priority<7)
-    {
-      PriorityClass=IDLE_PRIORITY_CLASS;
-      PriorityLevel=Priority-4;
-    }
-    else
-      if (Priority==7)
-      {
-        PriorityClass=BELOW_NORMAL_PRIORITY_CLASS;
-        PriorityLevel=THREAD_PRIORITY_ABOVE_NORMAL;
-      }
-      else
-        if (Priority<10)
-        {
-          PriorityClass=NORMAL_PRIORITY_CLASS;
-          PriorityLevel=Priority-7;
-        }
-        else
-          if (Priority==10)
-          {
-            PriorityClass=ABOVE_NORMAL_PRIORITY_CLASS;
-            PriorityLevel=THREAD_PRIORITY_NORMAL;
-          }
-          else
-          {
-            PriorityClass=HIGH_PRIORITY_CLASS;
-            PriorityLevel=Priority-13;
-          }
+
   SetPriorityClass(GetCurrentProcess(),PriorityClass);
   SetThreadPriority(GetCurrentThread(),PriorityLevel);
 
