@@ -14,11 +14,13 @@ void SetPriority(int Priority)
 #ifdef _WIN_ALL
   uint PriorityClass;
   int PriorityLevel;
-  if (Priority<1 || Priority>15)
-    return;
+  if (Priority < 1)
+    Priority = 1;
+  else if (Priority > 15)
+    Priority = 15;
   
   if (Priority <= 7){
-    PriorityClass = Priority == 7 ?
+    PriorityClass = Priority == 7 ? 
       BELOW_NORMAL_PRIORITY_CLASS : IDLE_PRIORITY_CLASS;
     PriorityLevel =  Priority == 7 ?
       THREAD_PRIORITY_ABOVE_NORMAL : Priority-4;
